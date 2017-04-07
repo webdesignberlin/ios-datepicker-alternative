@@ -34,9 +34,50 @@
             scroll-snap-points-x: repeat(100%);
         }
 
-        /* theming */
+
+        /* Demo Styles */
+
+        .date {
+            --theme-spacing: 1em;
+        }
+
+        .date-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .date-list__item {
+            padding: 0;
+            margin: 0;
+        }
+
+        .date-field__item {
+            font-size: 16px;
+            display: block;
+            width: 100%;
+            padding: var(--theme-spacing);
+            margin: calc(var(--theme-spacing) / 2) 0;
+            line-height: 1.2;
+            text-align: center;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            background: none;
+            user-select: none;
+            text-decoration: none;
+            border-radius: 0;
+            border: 0;
+        }
+
         .date-field__item--active {
-            border: 1px solid red;
+            background: cornflowerblue;
+            color: white;
+        }
+
+        .date-fields {
+            grid-gap: 0;
         }
     </style>
 
