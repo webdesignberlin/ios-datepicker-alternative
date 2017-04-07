@@ -1,0 +1,46 @@
+<div class="date">
+    <div class="date-fields">
+        <!-- ul.date-list>li.date-list__item*12>button.date-field__item[data-date-field="day"][data-date-value="$"]{$} -->
+
+        {% if days %}
+            <div class="date-field date-field--day">
+                <ul class="date-list">
+        {% for day in days %}
+
+                    <li class="date-list__item">
+                        <button class="date-field__item" data-date-field="day" data-date-value="{{ day }}">{{ loop.index }}</button>
+                    </li>
+        {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if months %}
+            <div class="date-field date-field--month">
+                <ul class="date-list">
+                    {% for month in months %}
+
+                        <li class="date-list__item">
+                            <button class="date-field__item" data-date-field="month" data-date-value="{{ month }}">{{ loop.index }}</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if years %}
+            <div class="date-field date-field--year">
+                <ul class="date-list">
+                    {% for year in years %}
+
+                        <li class="date-list__item">
+                            <button class="date-field__item" data-date-field="year" data-date-value="{{ year }}">{{ year }}</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{{ foo }}

@@ -493,6 +493,7 @@
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js"></script>
 <script>
 
     function initDay(datePicker) {
@@ -540,6 +541,16 @@
         month: '',
         day: ''
       };
+    }
+
+    generateYears(startYear = 1984) {
+      let currentYear = new Date().getFullYear(), years = [];
+
+      while ( startYear <= currentYear ) {
+        years.push(startYear++);
+      }
+
+      return years;
     }
 
     setDay(day){
@@ -616,6 +627,7 @@
       initDay(datePicker);
       initMonth(datePicker);
       initYear(datePicker);
+      console.log(datePicker.generateYears());
     }
 
   }

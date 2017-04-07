@@ -4,7 +4,8 @@
   "description": "Alternative for native (iOS) Datepicker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "browser-sync start --server \".\" --files \"./*\""
   },
   "author": "Michael Gerstmann <guten-tag@seiler-gerstmann.de> (http://micha.seiler-gerstmann.de)",
   "license": "ISC"
