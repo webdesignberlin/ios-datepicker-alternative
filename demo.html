@@ -185,13 +185,40 @@
       datePicker.returnDate();
     }
 
-      /*getDay(){
-       let datePicker = this;
-       let elActiveDay = datePicker._elDayWrapper.querySelectorAll(`.date-field__item--active`)[0];
-       console.log('getDay', elActiveDay.dataset.dateValue);
-       console.log(datePicker.enteredDate);
-       //return elActiveDay.dataset.dateValue;
-       }*/
+    /*getDay(){
+    let datePicker = this;
+    let elActiveDay = datePicker._elDayWrapper.querySelectorAll(`.date-field__item--active`)[0];
+    console.log('getDay', elActiveDay.dataset.dateValue);
+    console.log(datePicker.enteredDate);
+    //return elActiveDay.dataset.dateValue;
+    }*/
+
+    getMonth(){
+      let datePicker = this;
+      let elActiveMonth = datePicker._elMonthWrapper.querySelectorAll('.date-field__item--active');
+
+      if (elActiveMonth.length > 0) {
+        return elActiveMonth[0].dataset.dateValue;
+      }
+      return null;
+    }
+
+    getYear(){
+      let datePicker = this;
+      let elActiveYear = datePicker._elYearWrapper.querySelectorAll('.date-field__item--active');
+
+      if (elActiveYear.length > 0) {
+        return elActiveYear[0].dataset.dateValue;
+      }
+      return null;
+    }
+
+    getDaysInMonth(){
+      let datePicker = this;
+      console.log('getMonth',datePicker.getMonth());
+      console.log('days in month: ', moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth());
+      //moment("2017-02", "YYYY-MM").daysInMonth()
+    }
 
     setMonth(month){
       console.log('setMonth',month);
@@ -204,6 +231,7 @@
       }
       elActiveMonth.classList.add('date-field__item--active');
       datePicker.enteredDate.month = month;
+      datePicker.getDaysInMonth();
       datePicker.returnDate();
     }
 
@@ -231,6 +259,7 @@
       }
 
       datePicker.enteredDate.year = year;
+      datePicker.getDaysInMonth();
       datePicker.returnDate();
     }
 
