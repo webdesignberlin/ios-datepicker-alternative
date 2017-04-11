@@ -2,9 +2,12 @@
  * Created by Michael.Gerstmann on 10.04.2017.
  */
 function initDay(datePicker) {
+  console.log('initday', datePicker._elsDay);
   let _elsDay = datePicker._elsDay;
   for (let fieldItem of _elsDay){
+    console.log(fieldItem);
     fieldItem.addEventListener('click', function () {
+      console.log(fieldItem);
       let value = fieldItem.dataset.dateValue;
       datePicker.setDay(value)
     });
@@ -29,6 +32,10 @@ function initYear(datePicker) {
       datePicker.setYear(value)
     });
   }
+}
+
+function getWrapper(){
+  return document.querySelector('.date');
 }
 
 class datePicker {
@@ -59,6 +66,16 @@ class datePicker {
     elActiveDay.classList.add('date-field__item--active');
     datePicker.enteredDate.day = day;
     datePicker.returnDate();
+  }
+
+  getDay(){
+    let datePicker = this;
+    let elActiveDay = datePicker._elDayWrapper.querySelectorAll('.date-field__item--active');
+
+    if (elActiveDay.length > 0) {
+      return elActiveDay[0].dataset.dateValue;
+    }
+    return null;
   }
 
   /*getDay(){
@@ -94,7 +111,8 @@ class datePicker {
 
     let updateDaysInMonth = new CustomEvent('updateDaysInMonth', {
       detail: {
-        days: moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth()
+        days: moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth(),
+        activeDay: datePicker.getDay()
       }
     });
 
@@ -168,6 +186,11 @@ class datePicker {
     initDay(datePicker);
     initMonth(datePicker);
     initYear(datePicker);
+
+    document.addEventListener('updatedDays', function(e){
+      console.log('fire');
+      initDay(datePicker);
+    });
   }
 
 }
