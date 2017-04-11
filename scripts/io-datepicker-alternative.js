@@ -49,7 +49,6 @@ class datePicker {
   }
 
   setDay(day){
-    console.log('setDay',day);
     let datePicker = this;
     let elsDayItems = datePicker._elsDay;
     let elActiveDay = datePicker._elDayWrapper.querySelectorAll(`[data-date-value="${day}"]`)[0];
@@ -92,13 +91,22 @@ class datePicker {
 
   getDaysInMonth(){
     let datePicker = this;
-    console.log('getMonth',datePicker.getMonth());
-    console.log('days in month: ', moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth());
+
+    let updateDaysInMonth = new CustomEvent('updateDaysInMonth', {
+      detail: {
+        days: moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth()
+      }
+    });
+
+    if (datePicker.getMonth() && datePicker.getYear()){
+      document.dispatchEvent(updateDaysInMonth);
+    }
+
+    /*console.log('days in month: ', moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth());*/
     //moment("2017-02", "YYYY-MM").daysInMonth()
   }
 
   setMonth(month){
-    console.log('setMonth',month);
     let datePicker = this;
     let elsMonthItems = datePicker._elsMonth;
     let elActiveMonth = datePicker._elMonthWrapper.querySelectorAll(`[data-date-value="${month}"]`)[0];
@@ -113,7 +121,6 @@ class datePicker {
   }
 
   setYear(year, scrollToActive = false){
-    console.log('setYear',year);
     let datePicker = this;
     let elsYearItems = datePicker._elsYear;
     let elActiveYear = datePicker._elYearWrapper.querySelectorAll(`[data-date-value="${year}"]`)[0];
@@ -124,7 +131,6 @@ class datePicker {
     elActiveYear.classList.add('date-field__item--active');
 
     if(scrollToActive === true) {
-      console.log(elActiveYear.scrollTop);
       //elActiveYear.scrollIntoView(false);
       const elementRect = elActiveYear.getBoundingClientRect();
       const container = datePicker._elYearWrapper;
@@ -132,7 +138,6 @@ class datePicker {
       const absoluteElementTop = elActiveYear.offsetTop + container.scrollTop;
       const middle = absoluteElementTop - (container.offsetHeight / 2);
       container.scrollTop = middle;
-      console.log(middle);
     }
 
     datePicker.enteredDate.year = year;
@@ -150,7 +155,6 @@ class datePicker {
     let checkDate = datePicker.enteredDate.year + '-' + datePicker.enteredDate.month + '-' + datePicker.enteredDate.day;
 
     if (checkDate.match(/^(\d{4})\-(\d{1,2})\-(\d{1,2})$/)) {
-      console.log(checkDate);
       this._elDateInput.value = datePicker.enteredDate.year + '-' + datePicker.enteredDate.month + '-' + datePicker.enteredDate.day;
     }
     /*console.log(moment(checkDate).isValid());
