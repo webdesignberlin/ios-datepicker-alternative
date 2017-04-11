@@ -69,65 +69,6 @@ class datePicker {
     datePicker.returnDate();
   }
 
-  getDay(){
-    let datePicker = this;
-    let elDayWrapper = document.querySelectorAll(datePicker._dayWrapper)[0];
-    let elActiveDay = elDayWrapper.querySelectorAll('.date-field__item--active');
-
-    if (elActiveDay.length > 0) {
-      return elActiveDay[0].dataset.dateValue;
-    }
-    return null;
-  }
-
-  /*getDay(){
-   let datePicker = this;
-   let elActiveDay = datePicker._dayWrapper.querySelectorAll(`.date-field__item--active`)[0];
-   console.log('getDay', elActiveDay.dataset.dateValue);
-   console.log(datePicker.enteredDate);
-   //return elActiveDay.dataset.dateValue;
-   }*/
-
-  getMonth(){
-    let datePicker = this;
-    let elMonthWrapper = document.querySelectorAll(datePicker._monthWrapper)[0];
-    let elActiveMonth = elMonthWrapper.querySelectorAll('.date-field__item--active');
-
-    if (elActiveMonth.length > 0) {
-      return elActiveMonth[0].dataset.dateValue;
-    }
-    return null;
-  }
-
-  getYear(){
-    let datePicker = this;
-    let elYearWrapper = document.querySelectorAll(datePicker._yearWrapper)[0];
-    let elActiveYear = elYearWrapper.querySelectorAll('.date-field__item--active');
-
-    if (elActiveYear.length > 0) {
-      return elActiveYear[0].dataset.dateValue;
-    }
-    return null;
-  }
-
-  getDaysInMonth(){
-    let datePicker = this;
-
-    let updateDaysInMonth = new CustomEvent('updateDaysInMonth', {
-      detail: {
-        days: moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth(),
-        activeDay: datePicker.getDay()
-      }
-    });
-
-    if (datePicker.getMonth() && datePicker.getYear()){
-      document.dispatchEvent(updateDaysInMonth);
-    }
-
-    /*console.log('days in month: ', moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth());*/
-    //moment("2017-02", "YYYY-MM").daysInMonth()
-  }
-
   setMonth(month){
     let datePicker = this;
     let _months = document.querySelectorAll(
@@ -174,22 +115,61 @@ class datePicker {
     datePicker.returnDate();
   }
 
+  getDay(){
+    let datePicker = this;
+    let elDayWrapper = document.querySelectorAll(datePicker._dayWrapper)[0];
+    let elActiveDay = elDayWrapper.querySelectorAll('.date-field__item--active');
+
+    if (elActiveDay.length > 0) {
+      return elActiveDay[0].dataset.dateValue;
+    }
+    return null;
+  }
+
+  getMonth(){
+    let datePicker = this;
+    let elMonthWrapper = document.querySelectorAll(datePicker._monthWrapper)[0];
+    let elActiveMonth = elMonthWrapper.querySelectorAll('.date-field__item--active');
+
+    if (elActiveMonth.length > 0) {
+      return elActiveMonth[0].dataset.dateValue;
+    }
+    return null;
+  }
+
+  getYear(){
+    let datePicker = this;
+    let elYearWrapper = document.querySelectorAll(datePicker._yearWrapper)[0];
+    let elActiveYear = elYearWrapper.querySelectorAll('.date-field__item--active');
+
+    if (elActiveYear.length > 0) {
+      return elActiveYear[0].dataset.dateValue;
+    }
+    return null;
+  }
+
+  getDaysInMonth(){
+    let datePicker = this;
+
+    let updateDaysInMonth = new CustomEvent('updateDaysInMonth', {
+      detail: {
+        days: moment(datePicker.getYear()+'-'+datePicker.getMonth(), 'YYYY-MM').daysInMonth(),
+        activeDay: datePicker.getDay()
+      }
+    });
+
+    if (datePicker.getMonth() && datePicker.getYear()){
+      document.dispatchEvent(updateDaysInMonth);
+    }
+  }
+
   returnDate(){
     let datePicker = this;
-    /*let checkDate = [
-     datePicker.enteredDate.year,
-     datePicker.enteredDate.month,
-     datePicker.enteredDate.day
-     ];*/
     let checkDate = datePicker.enteredDate.year + '-' + datePicker.enteredDate.month + '-' + datePicker.enteredDate.day;
 
     if (checkDate.match(/^(\d{4})\-(\d{1,2})\-(\d{1,2})$/)) {
       this._elDateInput.value = datePicker.enteredDate.year + '-' + datePicker.enteredDate.month + '-' + datePicker.enteredDate.day;
     }
-    /*console.log(moment(checkDate).isValid());
-     if (moment(checkDate).isValid() === true) {
-     this._elDateInput.value = moment(checkDate).format('YYYY-MM-DD');
-     }*/
   }
 
   init(){
@@ -198,8 +178,7 @@ class datePicker {
     initMonth(datePicker);
     initYear(datePicker);
 
-    document.addEventListener('updatedDays', function(e){
-      console.log('fire');
+    document.addEventListener('updatedDays', function(){
       initDay(datePicker);
     });
   }
