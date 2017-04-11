@@ -1,6 +1,12 @@
 /**
  * Created by Michael.Gerstmann on 10.04.2017.
  */
+
+/**
+ * Generate Array of Years from startYear to Today
+ * @param startYear
+ * @returns {Array}
+ */
 function generateYears(startYear = 1984) {
   let currentYear = new Date().getFullYear(), years = [];
 
@@ -11,13 +17,21 @@ function generateYears(startYear = 1984) {
   return years;
 }
 
+/**
+ * Define template Options
+ * @type {{years: Array, months: [*], days: *, foo: string}}
+ */
 let templateOptions = {
   years: generateYears(new Date().getFullYear() - 100),
   months: ['01','02','03','04','05','06','07','08','09','10','11','12'],
-  days: generateDays(31),
-  foo: 'works'
+  days: generateDays(31)
 };
 
+/**
+ * Generates an Array of Days via days Object
+ * @param {object} days
+ * @returns {Array}
+ */
 function generateDays(days = {days: 31}){
   let daysOutput = [];
   for(let i = 1; i <= days; i++){
@@ -29,6 +43,10 @@ function generateDays(days = {days: 31}){
   return daysOutput;
 }
 
+/**
+ * Wrapper Markup
+ * @param content
+ */
 const tmplWrapper = content =>`
 <div class="date">
 <div class="date-fields">
@@ -36,6 +54,10 @@ ${content}
 </div>
 </div>`;
 
+/**
+ * Month Markup
+ * @param {object} months
+ */
 const tmplMonths = (months) => `
 <div class="date-field date-field--month">
   <ul class="date-list">
@@ -51,6 +73,10 @@ const tmplMonths = (months) => `
 </div>
 `;
 
+/**
+ * Year Markup
+ * @param {object} years
+ */
 const tmplYears = (years) => `
 <div class="date-field date-field--year">
   <ul class="date-list">
@@ -66,6 +92,12 @@ const tmplYears = (years) => `
 </div>
 `;
 
+/**
+ * Print Active Class for Re-rendered Day Markup activeClass + currentDay must match
+ * @param {string} activeClass - active Class e.g. 04
+ * @param {string} currentDay
+ * @returns {string}
+ */
 const printActiveDayClass = function(activeClass, currentDay){
   if (activeClass === currentDay){
     return 'date-field__item--active'
@@ -90,6 +122,9 @@ const tmplDays = (options) => `
 
 
 let elTarget = document.getElementById('date-wrapper');
+/**
+ * Render date Markup
+ */
 function dateMarkup() {
   elTarget.insertAdjacentHTML('beforeend', tmplWrapper(
     tmplDays(templateOptions)+
@@ -101,6 +136,9 @@ function dateMarkup() {
 dateMarkup();
 generateDays();
 
+/**
+ * Add Event listener which fired on Month Update in date picker
+ */
 document.addEventListener('updateDaysInMonth', function(e){
   let dayWrapper = document.querySelectorAll('.date-field--day');
   if(dayWrapper.length > 0){
