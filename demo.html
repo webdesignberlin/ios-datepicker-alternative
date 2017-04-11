@@ -5,6 +5,18 @@
     <title>Title</title>
 
     <style>
+        html{
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            position:relative;
+            height:100%;
+        }
+        body {
+            height:100%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            position:relative;
+        }
         body { margin: 0; padding: 0; }
         .demo {
             background: coral;
@@ -26,7 +38,7 @@
         }
 
         .date-field {
-            overflow: auto;
+            overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: mandatory;
             /* older spec implementation */
@@ -56,6 +68,10 @@
             font-size: 16px;
             display: block;
             width: 100%;
+            /*
+            width: 25%;
+            float: left;
+            */
             padding: var(--theme-spacing);
             margin: calc(var(--theme-spacing) / 2) 0;
             line-height: 1.2;
@@ -79,14 +95,24 @@
         .date-fields {
             grid-gap: 0;
         }
+
+
+        .hide { display: none; }
     </style>
 
 </head>
 <body>
 <div class="demo">
     <input type="date" class="date-trigger">
-    <div id="date-wrapper"></div>
+    <div id="date-wrapper">
+
+        <p>
+            <button class="btn js-clear">clear braucht niemand</button>
+            <button class="btn js-done">Übernehmen</button>
+        </p>
+    </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js"></script>
 
@@ -100,10 +126,78 @@
   let demo = new datePicker(elDatePicker);
   demo.setYear('1984', true);
   demo.init();
+
+
+
+  let clearbtn = document.querySelector('.js-clear');
+  clearbtn.addEventListener('click', function () {
+    console.log('clear');
+    demo.clear();
+  });
+
+  let donebtn = document.querySelector('.js-done');
+  donebtn.addEventListener('click', function () {
+    console.log('done');
+    document.getElementById('date-wrapper').classList.toggle('hide');
+  });
+
+  elDatePicker.addEventListener('click', function () {
+    document.getElementById('date-wrapper').classList.toggle('hide');
+  });
+
+
+
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
+
 </script>
+
 <!--
 <script id="__bs_script__">//<![CDATA[
 document.write("<script async src='http://HOST:3002/browser-sync/browser-sync-client.js?v=2.18.8'><\/script>".replace("HOST", location.hostname));
 //]]></script>-->
+
+
+
+
+
+<!--
+<script>
+  var overscroll = function(el) {
+    el.addEventListener('touchstart', function() {
+      var top = el.scrollTop
+        , totalScroll = el.scrollHeight
+        , currentScroll = top + el.offsetHeight
+      //If we're at the top or the bottom of the containers
+      //scroll, push up or down one pixel.
+      //
+      //this prevents the scroll from "passing through" to
+      //the body.
+      if(top === 0) {
+        el.scrollTop = 1
+      } else if(currentScroll === totalScroll) {
+        el.scrollTop = top - 1
+      }
+    })
+    el.addEventListener('touchmove', function(evt) {
+      //if the content is actually scrollable, i.e. the content is long enough
+      //that scrolling can occur
+      if(el.offsetHeight < el.scrollHeight)
+        evt._isScroller = true
+    })
+  };
+  let scrolls = document.querySelectorAll('.date-field');
+  for (let scroll in scrolls) {
+    overscroll(scroll);
+  }
+  document.body.addEventListener('touchmove', function(evt) {
+    //In this case, the default behavior is scrolling the body, which
+    //would result in an overflow.  Since we don't want that, we preventDefault.
+    if(!evt._isScroller) {
+      evt.preventDefault()
+    }
+  })
+</script>
+-->
 </body>
 </html>

@@ -59,7 +59,7 @@ class datePicker {
    */
   constructor(dateInput){
     this._elDateInput = dateInput;
-    this._elWrapper = document.querySelector('.date');
+    //this._elWrapper = document.querySelector('.date');
     this._dayWrapper = '.date-field--day';
     this._monthWrapper = '.date-field--month';
     this._yearWrapper = '.date-field--year';
@@ -88,6 +88,14 @@ class datePicker {
     document.querySelector(`${datePicker._dayWrapper} [data-date-value="${day}"]`).classList.add('date-field__item--active');
     datePicker.enteredDate.day = day;
     datePicker.returnDate();
+  }
+
+  clear(){
+    let datePicker = this;
+    let _items = document.querySelectorAll(datePicker._item);
+    for(let _item of _items){
+    _item.classList.remove('date-field__item--active')
+    }
   }
 
   /**

@@ -122,10 +122,11 @@ const tmplDays = (options) => `
 
 
 let elTarget = document.getElementById('date-wrapper');
+let elTarget2 = document.getElementById('date-wrapper2');
 /**
  * Render date Markup
  */
-function dateMarkup() {
+function dateMarkup(elTarget) {
   elTarget.insertAdjacentHTML('beforeend', tmplWrapper(
     tmplDays(templateOptions)+
     tmplMonths(templateOptions.months)+
@@ -133,7 +134,8 @@ function dateMarkup() {
     )
   );
 }
-dateMarkup();
+dateMarkup(elTarget);
+//dateMarkup(elTarget2);
 generateDays();
 
 /**
