@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "browser-sync start --server \".\" --files \"./*\""
+    "dev": "browser-sync start --server \".\" --files \"*.html,scripts/*.js\""
   },
   "author": "Michael Gerstmann <guten-tag@seiler-gerstmann.de> (http://micha.seiler-gerstmann.de)",
   "license": "ISC"
