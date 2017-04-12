@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body { margin: 0; padding: 0; }
+        .demo {
+            background: coral;
+            padding: 3%;
+        }
+
+        .date {
+
+            --date-color-bg: #fff;
+            --date-height: 300px;
+            max-width: 100%;
+            background-color: var(--date-color-bg);
+        }
+
+        .date-fields {
+            display: grid;
+            grid-template: var(--date-height) / 1fr 1fr 1fr;
+            grid-gap: 1em;
+        }
+
+        .date-field {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: mandatory;
+            /* older spec implementation */
+            scroll-snap-destination: 0% 100%;
+            scroll-snap-points-x: repeat(100%);
+        }
+
+
+        /* Demo Styles */
+
+        .date {
+            --theme-spacing: 1em;
+        }
+
+        .date-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: stretch;
+        }
+
+        .date-list__item {
+            padding: 0;
+            margin: 0;
+            width: 33%;
+        }
+
+        .date-field__item {
+            font-size: 16px;
+            display: block;
+            width: 100%;
+            /*
+            width: 25%;
+            float: left;
+            */
+            padding: var(--theme-spacing);
+            margin: 0;
+            line-height: 1.2;
+            text-align: center;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            background: none;
+            user-select: none;
+            text-decoration: none;
+            border-radius: 0;
+            border: 0;
+        }
+
+        .date-field__item--active {
+            background: cornflowerblue;
+            color: white;
+        }
+
+        .date-fields {
+            grid-gap: 0;
+        }
+    </style>
+
+</head>
+<body>
+<div class="demo">
+    <input type="date" class="date-trigger">
+    <div id="date-wrapper"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js"></script>
+
+<script src="scripts/generate-markup.js"></script>
+<script src="scripts/io-datepicker-alternative.js"></script>
+<script>
+    /*demo.setDay('11');
+     demo.setMonth('08');
+     demo.setYear('0007');*/
+    let elDatePicker = document.querySelector('.date-trigger');
+    let demo = new datePicker(elDatePicker);
+    demo.setYear('1984', true);
+    demo.init();
+</script>
+<!--
+<script id="__bs_script__">//<![CDATA[
+document.write("<script async src='http://HOST:3002/browser-sync/browser-sync-client.js?v=2.18.8'><\/script>".replace("HOST", location.hostname));
+//]]></script>-->
+</body>
+</html>
